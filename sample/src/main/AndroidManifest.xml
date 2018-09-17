@@ -20,7 +20,10 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity android:name=".StaticShortcutActivity"></activity>
+        <activity android:name=".StaticShortcutActivity" />
+
+        <receiver android:name=".PinnedShortcutSuccessBroadcast" />
+
     </application>
 
 </manifest>

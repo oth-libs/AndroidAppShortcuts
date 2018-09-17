@@ -4,7 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.oth.appshortcut.AppShortcut
+import com.oth.appshortcut.AppDynamicShortcut
+import com.oth.appshortcut.AppPinnedShortcut
 import com.oth.appshortcut.ShortcutConfig
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                     icon = R.drawable.ic_launcher,
                     intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/")))
 
-            AppShortcut.addShortcut(this@MainActivity, shortcutConfig)
+            AppDynamicShortcut.addShortcut(this@MainActivity, shortcutConfig)
         }
 
         amazon.setOnClickListener {
@@ -32,11 +33,34 @@ class MainActivity : AppCompatActivity() {
                     icon = R.drawable.ic_launcher,
                     intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/")))
 
-            AppShortcut.updateShortcut(this@MainActivity, shortcutConfig)
+            AppDynamicShortcut.updateShortcut(this@MainActivity, shortcutConfig)
         }
 
         remove.setOnClickListener {
-            AppShortcut.removeShortcut(this@MainActivity, "gID")
+            AppDynamicShortcut.removeShortcut(this@MainActivity, "gID")
+        }
+
+        //
+
+        pinned.setOnClickListener {
+            val shortcutConfig = ShortcutConfig(id = "pinnedID",
+                    shortLabel = "youtube.com",
+                    longLabel = "open youtube.com",
+                    icon = R.drawable.ic_launcher,
+                    intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/")))
+
+            AppPinnedShortcut.addShortcut(this@MainActivity, shortcutConfig)
+        }
+
+        pinnedCallback.setOnClickListener {
+            val shortcutConfig = ShortcutConfig(id = "pinnedID2",
+                    shortLabel = "google.de",
+                    longLabel = "open google.de",
+                    icon = R.drawable.ic_launcher,
+                    intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.de/")),
+                    pinnedShortcutCallback = Intent(this@MainActivity, PinnedShortcutSuccessBroadcast::class.java))
+
+            AppPinnedShortcut.addShortcut(this@MainActivity, shortcutConfig)
         }
     }
 }

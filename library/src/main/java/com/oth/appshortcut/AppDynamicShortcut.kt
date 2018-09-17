@@ -7,20 +7,20 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import java.util.*
 
-object AppShortcut {
+object AppDynamicShortcut {
 
     fun addShortcut(context: Context?, shortcutConfig: ShortcutConfig) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) return
 
-        context?.let {
+        context?.let { ctx ->
             val shortcutManager = context.getSystemService<ShortcutManager>(ShortcutManager::class.java)
 
-            val shortcut = ShortcutInfo.Builder(it, shortcutConfig.id)
-                    .setShortLabel(shortcutConfig.shortLabel)
-                    .setLongLabel(shortcutConfig.longLabel)
-                    .setIcon(Icon.createWithResource(context, shortcutConfig.icon))
-                    .setIntent(shortcutConfig.intent)
-                    .build()
+            val shortcut = ShortcutInfo.Builder(ctx, shortcutConfig.id).apply {
+                shortcutConfig.shortLabel?.let { setShortLabel(it) }
+                shortcutConfig.longLabel?.let { setLongLabel(it) }
+                shortcutConfig.icon?.let { setIcon(Icon.createWithResource(ctx, it)) }
+                shortcutConfig.intent?.let { setIntent(it) }
+            }.build()
 
             shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut))
         }
@@ -35,15 +35,15 @@ object AppShortcut {
     fun updateShortcut(context: Context?, shortcutConfig: ShortcutConfig) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) return
 
-        context?.let {
+        context?.let { ctx ->
             val shortcutManager = context.getSystemService<ShortcutManager>(ShortcutManager::class.java)
 
-            val shortcut = ShortcutInfo.Builder(it, shortcutConfig.id)
-                    .setShortLabel(shortcutConfig.shortLabel)
-                    .setLongLabel(shortcutConfig.longLabel)
-                    .setIcon(Icon.createWithResource(context, shortcutConfig.icon))
-                    .setIntent(shortcutConfig.intent)
-                    .build()
+            val shortcut = ShortcutInfo.Builder(ctx, shortcutConfig.id).apply {
+                shortcutConfig.shortLabel?.let { setShortLabel(it) }
+                shortcutConfig.longLabel?.let { setLongLabel(it) }
+                shortcutConfig.icon?.let { setIcon(Icon.createWithResource(ctx, it)) }
+                shortcutConfig.intent?.let { setIntent(it) }
+            }.build()
 
             shortcutManager.updateShortcuts(Arrays.asList(shortcut))
         }

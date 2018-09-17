@@ -24,4 +24,20 @@
         android:layout_height="wrap_content"
         android:text="remove shortcut" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000000" />
+
+    <Button
+        android:id="@+id/pinned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add pinned youtube.com (no callback)" />
+
+    <Button
+        android:id="@+id/pinnedCallback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add pinned youtube.com (with callback)" />
 </LinearLayout>
